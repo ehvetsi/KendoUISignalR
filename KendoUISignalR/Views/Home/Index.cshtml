@@ -1,29 +1,27 @@
 ﻿@using Kendo.Mvc
 
+<link href="~/Content/kendo/2015.3.1111/kendo.common-bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2015.3.1111/kendo.default.min.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/kendo/2015.3.1111/jquery.min.js"></script>
+    <script src="~/Scripts/kendo/2015.3.1111/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo/2015.3.1111/kendo.aspnetmvc.min.js"></script>
 @(Html.Kendo().Grid<KendoUISignalR.Models.ProductViewModel>()
-    .Name("Grid")
-    .Columns(columns =>
-    {
-        columns.Bound(p => p.ProductName);
-        columns.Bound(p => p.UnitPrice).Width(140);
-        columns.Bound(p => p.UnitsInStock).Width(80);
-        columns.Bound(p => p.Discontinued).Width(80);
-        columns.Command(command =>
-        {
-            command.Destroy();
-        }).Width(110);
-    })
-    .ToolBar(toolbar =>
-    {
-        toolbar.Create();
-    })
-    .Editable(editable => editable.Mode(GridEditMode.InCell))
-    .Pageable()
-    .Navigatable()
-    .Sortable()
-    .Scrollable()
-    .DataSource(dataSource => dataSource
-        .Ajax()
-        .Read(read => read.Action("Produtos", "Home"))
-        .PageSize(20))
+      .Name("grid")
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Products_Read", "Home"))
+       )
+      .Columns(columns =>
+      {
+          columns.Bound(product => product.ProductID);
+          columns.Bound(product => product.ProductName);
+          columns.Bound(product => product.UnitsInStock);
+      })
+      .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+      .Sortable()
 )
