@@ -13,5 +13,10 @@ namespace KendoUISignalR.Controllers
         {
             return View();
         }
+
+        public ActionResult Produtos()
+        {
+            return View();
+        }
     }
 }
