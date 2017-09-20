@@ -26,5 +26,21 @@ namespace KendoUISignalR.Models
         }
     
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<CustomerDemographics> CustomerDemographics { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Intraday> Intraday { get; set; }
+        public virtual DbSet<MeetingAttendees> MeetingAttendees { get; set; }
+        public virtual DbSet<Meetings> Meetings { get; set; }
+        public virtual DbSet<Order_Details> Order_Details { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Region> Region { get; set; }
+        public virtual DbSet<Shippers> Shippers { get; set; }
+        public virtual DbSet<Stock> Stock { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<Tasks> Tasks { get; set; }
+        public virtual DbSet<Territories> Territories { get; set; }
+        public virtual DbSet<Weather> Weather { get; set; }
     }
 }

@@ -4,8 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3f6d72dd08184213bbcd7c2fd61c3f36" Name="Diagram1">
+      <Diagram DiagramId="e9b07773feac4f05b5037cafe054a753" Name="Diagram1">
         <EntityTypeShape EntityType="SampleModel.Products" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SampleModel.Categories" Width="1.5" PointX="1.125" PointY="6.25" />
+        <EntityTypeShape EntityType="SampleModel.CustomerDemographics" Width="1.5" PointX="3.75" PointY="2.5" />
+        <EntityTypeShape EntityType="SampleModel.Customers" Width="1.5" PointX="6" PointY="1.375" />
+        <EntityTypeShape EntityType="SampleModel.Employees" Width="1.5" PointX="6" PointY="9.25" />
+        <EntityTypeShape EntityType="SampleModel.Intraday" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SampleModel.MeetingAttendees" Width="1.5" PointX="11" PointY="8.125" />
+        <EntityTypeShape EntityType="SampleModel.Meetings" Width="1.5" PointX="8.75" PointY="7" />
+        <EntityTypeShape EntityType="SampleModel.Order_Details" Width="1.5" PointX="10.5" PointY="2" />
+        <EntityTypeShape EntityType="SampleModel.Orders" Width="1.5" PointX="8.25" PointY="1" />
+        <EntityTypeShape EntityType="SampleModel.Region" Width="1.5" PointX="10.75" PointY="11.125" />
+        <EntityTypeShape EntityType="SampleModel.Shippers" Width="1.5" PointX="6" PointY="15.25" />
+        <EntityTypeShape EntityType="SampleModel.Stock" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SampleModel.Suppliers" Width="1.5" PointX="1.125" PointY="9" />
+        <EntityTypeShape EntityType="SampleModel.Tasks" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SampleModel.Territories" Width="1.5" PointX="13" PointY="10.875" />
+        <EntityTypeShape EntityType="SampleModel.Weather" Width="1.5" PointX="13.75" PointY="5.75" />
+        <AssociationConnector Association="SampleModel.FK_Products_Categories" />
+        <AssociationConnector Association="SampleModel.FK_Orders_Customers" />
+        <AssociationConnector Association="SampleModel.FK_Employees_Employees" />
+        <AssociationConnector Association="SampleModel.FK_Orders_Employees" />
+        <AssociationConnector Association="SampleModel.FK_MeetingAtendee_Meeting" />
+        <AssociationConnector Association="SampleModel.FK_Meetings_Meetings" />
+        <AssociationConnector Association="SampleModel.FK_Order_Details_Orders" />
+        <AssociationConnector Association="SampleModel.FK_Order_Details_Products" />
+        <AssociationConnector Association="SampleModel.FK_Orders_Shippers" />
+        <AssociationConnector Association="SampleModel.FK_Products_Suppliers" />
+        <AssociationConnector Association="SampleModel.FK_Territories_Region" />
+        <AssociationConnector Association="SampleModel.FK_Tasks_Tasks" />
+        <AssociationConnector Association="SampleModel.CustomerCustomerDemo" />
+        <AssociationConnector Association="SampleModel.EmployeeTerritories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

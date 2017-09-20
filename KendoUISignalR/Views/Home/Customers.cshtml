@@ -1,0 +1,56 @@
+﻿@using Kendo.Mvc
+
+<link href="~/Content/kendo/2015.3.1111/kendo.common-bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2015.3.1111/kendo.default.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/kendo/2015.3.1111/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2015.3.1111/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/2015.3.1111/kendo.aspnetmvc.min.js"></script>
+@*<script src="~/Scripts/kendo/2015.3.1111/kendo.data.signalr.min.js"></script>*@
+
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="@Url.Content("~/signalr/hubs")"></script>
+
+<script>
+    var hub = $.connection.customerHub;
+    var hubStart = $.connection.hub.start();
+</script>
+
+@*@(Html.Kendo().Notification()
+          .Name("notification")
+          .Width("100%")
+          .Position(position => position.Top(0).Left(0))
+    )*@
+
+@(Html.Kendo().Grid<KendoUISignalR.Models.CustomerViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(product => product.CustomerID);
+          columns.Bound(c => c.ContactName);
+          columns.Bound(product => product.ContactTitle);
+      })
+  .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+    .SignalR()
+    .AutoSync(true)
+        .PageSize(10)
+        .Transport(tr => tr
+            .Promise("hubStart")
+            .Hub("hub")
+            .Client(c => c
+                .Read("read")
+                .Update("update"))
+            .Server(s => s
+                .Read("read")
+                .Update("update")))
+        .Schema(schema => schema
+            .Model(model =>
+            {
+                model.Id(m => m.CustomerID);
+                model.Field(m => m.CustomerID).Editable(false);
+            })
+                       )
+    )
+)
