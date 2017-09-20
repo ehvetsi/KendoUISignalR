@@ -26,7 +26,7 @@
       .Name("grid")
       .Columns(columns =>
       {
-          columns.Bound(product => product.CustomerID);
+          //columns.Bound(product => product.CustomerID);
           columns.Bound(c => c.ContactName);
           columns.Bound(product => product.ContactTitle);
       })
@@ -54,3 +54,17 @@
                        )
     )
 )
+
+<div class="form-group">
+    <button class="btn-sm btn-primary" id="btnUpdate">Atualizar</button>
+</div>
+
+<script>
+    $(function () {
+        $(document).on("click", "#btnUpdate", function () {
+            $.ajax({
+                url:'@Url.Action("StartUpdateCustomers")',
+            });
+        });
+    });
+</script>

@@ -54,3 +54,17 @@
                        )
     )
 )
+
+<div class="form-group">
+    <button class="btn-sm btn-primary" id="btnUpdate">Atualizar</button>
+</div>
+
+<script>
+    $(function () {
+        $(document).on("click", "#btnUpdate", function () {
+            $.ajax({
+                url:'@Url.Action("StartUpdateProducts")',
+            });
+        });
+    });
+</script>
