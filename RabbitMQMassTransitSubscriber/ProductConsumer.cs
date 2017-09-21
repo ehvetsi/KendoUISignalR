@@ -5,6 +5,7 @@ using KendoUISignalR.Hubs;
 using KendoUISignalR.Models;
 using MassTransit;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace RabbitMQMassTransitSubscriber
             using (var dbContext = new SampleEntities())
             {
                 var product = dbContext.Products.FirstOrDefault(c => c.ProductID == context.Message.Product.ProductID);
-                product.ProductName = product.ProductName + DateTime.Now.Millisecond;
+                product.ProductName = "Alterado" + DateTime.Now.Millisecond;
                 dbContext.SaveChanges();
 
                 var productVM = new ProductViewModel
@@ -28,8 +29,17 @@ namespace RabbitMQMassTransitSubscriber
                     ProductID = product.ProductID,
                     ProductName = product.ProductName
                 };
-                var hubContext = GlobalHost.ConnectionManager.GetHubContext<ProductHub>();
-                hubContext.Clients.All.update(productVM);
+
+                const string url = @"http://localhost:51737/";
+                var connection = new HubConnection(url);
+                var hub = connection.CreateHubProxy("productHub");
+                connection.Start().Wait();
+
+                // TimeNow
+                hub.Invoke("update", productVM).Wait();
+
+                //var hubContext = GlobalHost.ConnectionManager.GetHubContext<ProductHub>();
+                //hubContext.Clients.All.update(productVM);
             }
             return Task.FromResult(0);
         }
