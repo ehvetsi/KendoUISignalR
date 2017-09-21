@@ -35,11 +35,7 @@ namespace RabbitMQMassTransitSubscriber
                 var hub = connection.CreateHubProxy("productHub");
                 connection.Start().Wait();
 
-                // TimeNow
                 hub.Invoke("update", productVM).Wait();
-
-                //var hubContext = GlobalHost.ConnectionManager.GetHubContext<ProductHub>();
-                //hubContext.Clients.All.update(productVM);
             }
             return Task.FromResult(0);
         }
