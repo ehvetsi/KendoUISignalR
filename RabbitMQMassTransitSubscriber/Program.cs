@@ -15,7 +15,7 @@ namespace RabbitMQMassTransitSubscriber
             {
                 var host = x.Host(new Uri("rabbitmq://localhost/"), h => { });
 
-                x.ReceiveEndpoint(host, "rpc_queue", e =>
+                x.ReceiveEndpoint(host, "product_queue", e =>
             e.Consumer<ProductConsumer>());
             });
             bus.Start();

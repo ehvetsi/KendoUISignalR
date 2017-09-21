@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,9 +34,9 @@ namespace KendoUISignalR.Controllers
             return null;
         }
 
-        public ActionResult StartUpdateProducts(int productId)
+        public async Task<ActionResult> StartUpdateProducts(int productId)
         {
-            new ProductService().ProductQueuer(new Services.Messages.ProductMessage()
+            await new ProductService().ProductQueuer(new Services.Messages.ProductMessage()
             {
                 Product = new ProductViewModel()
                 {

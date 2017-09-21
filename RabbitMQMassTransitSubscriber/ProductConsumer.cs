@@ -36,7 +36,9 @@ namespace RabbitMQMassTransitSubscriber
                 connection.Start().Wait();
 
                 hub.Invoke("update", productVM).Wait();
+                Console.WriteLine($"Atualizado produto: {productVM.ProductID}");
             }
+
             return Task.FromResult(0);
         }
     }
