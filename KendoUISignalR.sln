@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KendoUISignalR", "KendoUISignalR\KendoUISignalR.csproj", "{773BE206-453D-40BB-B30D-B8CE454DCFF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQMassTransitSubscriber", "RabbitMQMassTransitSubscriber\RabbitMQMassTransitSubscriber.csproj", "{D653A0DB-95D5-406C-900F-8F656E06B3F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{87454B6A-4606-4C57-B0E2-863B5AB76A92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{773BE206-453D-40BB-B30D-B8CE454DCFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{773BE206-453D-40BB-B30D-B8CE454DCFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{773BE206-453D-40BB-B30D-B8CE454DCFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D653A0DB-95D5-406C-900F-8F656E06B3F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D653A0DB-95D5-406C-900F-8F656E06B3F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D653A0DB-95D5-406C-900F-8F656E06B3F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D653A0DB-95D5-406C-900F-8F656E06B3F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87454B6A-4606-4C57-B0E2-863B5AB76A92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87454B6A-4606-4C57-B0E2-863B5AB76A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87454B6A-4606-4C57-B0E2-863B5AB76A92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87454B6A-4606-4C57-B0E2-863B5AB76A92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

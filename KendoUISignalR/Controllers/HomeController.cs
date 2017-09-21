@@ -1,7 +1,9 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using KendoUISignalR.CrossCutting.Dto;
 using KendoUISignalR.Hubs;
 using KendoUISignalR.Models;
+using KendoUISignalR.Services;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -31,10 +33,16 @@ namespace KendoUISignalR.Controllers
             return null;
         }
 
-        public ActionResult StartUpdateProducts()
+        public ActionResult StartUpdateProducts(int productId)
         {
-            Timer timer = new Timer(o => UpdateProducts(), null, 0, 2000);
-            return null;
+            new ProductService().ProductQueuer(new Services.Messages.ProductMessage()
+            {
+                Product = new ProductViewModel()
+                {
+                    ProductID = productId
+                }
+            });
+            return new HttpStatusCodeResult(200);
         }
 
         private static void UpdateCustomers()
@@ -58,20 +66,20 @@ namespace KendoUISignalR.Controllers
 
         private static void UpdateProducts()
         {
-            using (var context = new SampleEntities())
-            {
-                var product = context.Products.FirstOrDefault(c => c.ProductID == 1);
-                product.ProductName = "Alterado" + DateTime.Now.Millisecond;
-                context.SaveChanges();
+            //using (var context = new SampleEntities())
+            //{
+            //    var product = context.Products.FirstOrDefault(c => c.ProductID == 1);
+            //    product.ProductName = "Alterado" + DateTime.Now.Millisecond;
+            //    context.SaveChanges();
 
-                var productVM = new ProductViewModel
-                {
-                    ProductID = product.ProductID,
-                    ProductName = product.ProductName
-                };
-                var hubContext = GlobalHost.ConnectionManager.GetHubContext<ProductHub>();
-                hubContext.Clients.All.update(productVM);
-            }
+            //    var productVM = new ProductViewModel
+            //    {
+            //        ProductID = product.ProductID,
+            //        ProductName = product.ProductName
+            //    };
+            //    var hubContext = GlobalHost.ConnectionManager.GetHubContext<ProductHub>();
+            //    hubContext.Clients.All.update(productVM);
+            //}
         }
     }
 }

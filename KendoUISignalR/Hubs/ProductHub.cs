@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using KendoUISignalR.Models;
+using KendoUISignalR.CrossCutting.Dto;
 
 namespace KendoUISignalR.Hubs
 {
