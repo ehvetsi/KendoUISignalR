@@ -15,12 +15,12 @@
         <EntityTypeShape EntityType="SampleModel.Meetings" Width="1.5" PointX="8.75" PointY="7" />
         <EntityTypeShape EntityType="SampleModel.Order_Details" Width="1.5" PointX="10.5" PointY="2" />
         <EntityTypeShape EntityType="SampleModel.Orders" Width="1.5" PointX="8.25" PointY="1" />
-        <EntityTypeShape EntityType="SampleModel.Region" Width="1.5" PointX="10.75" PointY="11.125" />
+        <EntityTypeShape EntityType="SampleModel.Region" Width="1.5" PointX="14.25" PointY="11.375" />
         <EntityTypeShape EntityType="SampleModel.Shippers" Width="1.5" PointX="6" PointY="15.25" />
         <EntityTypeShape EntityType="SampleModel.Stock" Width="1.5" PointX="2.75" PointY="13.75" />
         <EntityTypeShape EntityType="SampleModel.Suppliers" Width="1.5" PointX="1.125" PointY="9" />
         <EntityTypeShape EntityType="SampleModel.Tasks" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SampleModel.Territories" Width="1.5" PointX="13" PointY="10.875" />
+        <EntityTypeShape EntityType="SampleModel.Territories" Width="1.5" PointX="10.625" PointY="11.125" />
         <EntityTypeShape EntityType="SampleModel.Weather" Width="1.5" PointX="13.75" PointY="5.75" />
         <AssociationConnector Association="SampleModel.FK_Products_Categories" />
         <AssociationConnector Association="SampleModel.FK_Orders_Customers" />
@@ -36,6 +36,9 @@
         <AssociationConnector Association="SampleModel.FK_Tasks_Tasks" />
         <AssociationConnector Association="SampleModel.CustomerCustomerDemo" />
         <AssociationConnector Association="SampleModel.EmployeeTerritories" />
+        <EntityTypeShape EntityType="SampleModel.User" Width="1.5" PointX="13.875" PointY="13.5" />
+        <EntityTypeShape EntityType="SampleModel.Connection" Width="1.5" PointX="10.75" PointY="13.75" />
+        <AssociationConnector Association="SampleModel.UserConnection" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

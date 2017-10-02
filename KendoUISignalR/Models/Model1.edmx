@@ -231,7 +231,7 @@
           <Property Name="RegionID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\EVERTON\DOCUMENTS\VISUAL STUDIO 2017\PROJECTS\KENDOUISIGNALR\KENDOUISIGNALR\APP_DATA\SAMPLE.MDF.dbo.Weather' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGNALR\CROSSCUTTING\DATA\SAMPLE.MDF.dbo.Weather' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Weather">
           <Key>
             <PropertyRef Name="ID" />
@@ -639,6 +639,12 @@ warning 6002: The table/view 'C:\USERS\EVERTON\DOCUMENTS\VISUAL STUDIO 2017\PROJ
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Territories" EntitySet="Territories" />
           </AssociationSet>
+          <EntitySet Name="UserSet" EntityType="SampleModel.User" />
+          <EntitySet Name="ConnectionSet" EntityType="SampleModel.Connection" />
+          <AssociationSet Name="UserConnection" Association="SampleModel.UserConnection">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Connection" EntitySet="ConnectionSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Categories">
           <Key>
@@ -1032,6 +1038,35 @@ warning 6002: The table/view 'C:\USERS\EVERTON\DOCUMENTS\VISUAL STUDIO 2017\PROJ
           <End Type="SampleModel.Employees" Role="Employees" Multiplicity="*" />
           <End Type="SampleModel.Territories" Role="Territories" Multiplicity="*" />
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Connection" Relationship="SampleModel.UserConnection" FromRole="User" ToRole="Connection" />
+        </EntityType>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="ConnectionId" />
+          </Key>
+          <Property Name="ConnectionId" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="User" Relationship="SampleModel.UserConnection" FromRole="Connection" ToRole="User" />
+          <Property Name="UserUserId" Type="Int32" Nullable="false" />
+          <Property Name="Connected" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="UserConnection">
+          <End Type="SampleModel.User" Role="User" Multiplicity="1" />
+          <End Type="SampleModel.Connection" Role="Connection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Connection">
+              <PropertyRef Name="UserUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1293,6 +1328,11 @@ warning 6002: The table/view 'C:\USERS\EVERTON\DOCUMENTS\VISUAL STUDIO 2017\PROJ
               <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ConnectionSet">
+            <EntityTypeMapping TypeName="IsTypeOf(SampleModel.Connection)">
+              <MappingFragment StoreEntitySet="Categories" />
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

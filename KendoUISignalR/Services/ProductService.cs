@@ -1,11 +1,11 @@
-﻿using CrossCutting.Interfaces;
-using KendoUISignalR.Services.Messages;
+﻿using KendoUISignalR.Services.Messages;
 using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Unifique.ServiceBroker.Messaging.Interfaces;
 
 namespace KendoUISignalR.Services
 {
