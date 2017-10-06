@@ -17,10 +17,10 @@
 </script>
 
 @*@(Html.Kendo().Notification()
-      .Name("notification")
-      .Width("100%")
-      .Position(position => position.Top(0).Left(0))
-)*@
+          .Name("notification")
+          .Width("100%")
+          .Position(position => position.Top(0).Left(0))
+    )*@
 <br />
 <p>RabbitMQ deverá estar instalado e rodando na porta padrão, usuário e senha padrão: guest</p>
 <p>Execute uma nova instância de RabbitMQMassTransitSubscriber para ativar o serviço que monitora o Rabbit</p>
@@ -60,7 +60,8 @@
 )
 
 <div class="form-group">
-    <input type="text" id="productId" placeholder="Product Id"/>
+    <input type="text" id="productId" placeholder="Product Id" />
+    <input type="text" id="userName" placeholder="User Name" />
     <button class="btn-sm btn-primary" id="btnUpdate">Atualizar</button>
 </div>
 
@@ -69,7 +70,7 @@
         $(document).on("click", "#btnUpdate", function () {
             $.ajax({
                 url: '@Url.Action("StartUpdateProducts")',
-                data: { productId: $("#productId").val() },
+                data: { productId: $("#productId").val(), userName: $("#userName").val()},
                 dataType: "json",
                 method:"post"
             });

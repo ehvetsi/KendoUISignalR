@@ -11,5 +11,6 @@ namespace KendoUISignalR.Services.Messages
     public class ProductMessage : IProductMessage
     {
         public ProductViewModel Product { get; set; }
+        public string UserName { get; set; }
     }
 }

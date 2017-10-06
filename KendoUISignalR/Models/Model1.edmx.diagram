@@ -36,9 +36,9 @@
         <AssociationConnector Association="SampleModel.FK_Tasks_Tasks" />
         <AssociationConnector Association="SampleModel.CustomerCustomerDemo" />
         <AssociationConnector Association="SampleModel.EmployeeTerritories" />
-        <EntityTypeShape EntityType="SampleModel.User" Width="1.5" PointX="13.875" PointY="13.5" />
-        <EntityTypeShape EntityType="SampleModel.Connection" Width="1.5" PointX="10.75" PointY="13.75" />
-        <AssociationConnector Association="SampleModel.UserConnection" />
+        <EntityTypeShape EntityType="SampleModel.ConnectionSet" Width="1.5" PointX="15.625" PointY="13.875" />
+        <EntityTypeShape EntityType="SampleModel.UserSet" Width="1.5" PointX="13.375" PointY="14" />
+        <AssociationConnector Association="SampleModel.FK_UserConnection" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

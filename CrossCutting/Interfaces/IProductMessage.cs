@@ -10,5 +10,6 @@ namespace Unifique.ServiceBroker.Messaging.Interfaces
     public interface IProductMessage
     {
         ProductViewModel Product { get; }
+        string UserName { get; set; }
     }
 }

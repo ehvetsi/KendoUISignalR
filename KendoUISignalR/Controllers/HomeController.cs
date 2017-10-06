@@ -34,14 +34,15 @@ namespace KendoUISignalR.Controllers
             return null;
         }
 
-        public async Task<ActionResult> StartUpdateProducts(int productId)
+        public async Task<ActionResult> StartUpdateProducts(int productId, string userName)
         {
             await new ProductService().ProductQueuer(new Services.Messages.ProductMessage()
             {
                 Product = new ProductViewModel()
                 {
                     ProductID = productId
-                }
+                },
+                UserName = userName
             });
             return new HttpStatusCodeResult(200);
         }

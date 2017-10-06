@@ -14,6 +14,14 @@
           <Property Name="Description" Type="ntext" />
           <Property Name="Picture" Type="image" />
         </EntityType>
+        <EntityType Name="ConnectionSet">
+          <Key>
+            <PropertyRef Name="ConnectionId" />
+          </Key>
+          <Property Name="ConnectionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserUserId" Type="int" Nullable="false" />
+          <Property Name="Connected" Type="bit" />
+        </EntityType>
         <EntityType Name="CustomerCustomerDemo">
           <Key>
             <PropertyRef Name="CustomerID" />
@@ -230,6 +238,13 @@
           <Property Name="TerritoryDescription" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="RegionID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserSet">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGNALR\CROSSCUTTING\DATA\SAMPLE.MDF.dbo.Weather' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Weather">
@@ -445,8 +460,21 @@ warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGN
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserConnection">
+          <End Role="UserSet" Type="Self.UserSet" Multiplicity="1" />
+          <End Role="ConnectionSet" Type="Self.ConnectionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSet">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ConnectionSet">
+              <PropertyRef Name="UserUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SampleModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConnectionSet" EntityType="Self.ConnectionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerCustomerDemo" EntityType="Self.CustomerCustomerDemo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerDemographics" EntityType="Self.CustomerDemographics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
@@ -464,6 +492,7 @@ warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGN
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territories" EntityType="Self.Territories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSet" EntityType="Self.UserSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weather" EntityType="Self.Weather" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Weather].[ID] AS [ID], 
@@ -541,6 +570,10 @@ warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGN
           <AssociationSet Name="FK_Territories_Region" Association="Self.FK_Territories_Region">
             <End Role="Region" EntitySet="Region" />
             <End Role="Territories" EntitySet="Territories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserConnection" Association="Self.FK_UserConnection">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="ConnectionSet" EntitySet="ConnectionSet" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -639,11 +672,11 @@ warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGN
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Territories" EntitySet="Territories" />
           </AssociationSet>
-          <EntitySet Name="UserSet" EntityType="SampleModel.User" />
-          <EntitySet Name="ConnectionSet" EntityType="SampleModel.Connection" />
-          <AssociationSet Name="UserConnection" Association="SampleModel.UserConnection">
-            <End Role="User" EntitySet="UserSet" />
-            <End Role="Connection" EntitySet="ConnectionSet" />
+          <EntitySet Name="ConnectionSet" EntityType="SampleModel.ConnectionSet" />
+          <EntitySet Name="UserSet" EntityType="SampleModel.UserSet" />
+          <AssociationSet Name="FK_UserConnection" Association="SampleModel.FK_UserConnection">
+            <End Role="UserSet" EntitySet="UserSet" />
+            <End Role="ConnectionSet" EntitySet="ConnectionSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Categories">
@@ -1038,31 +1071,31 @@ warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGN
           <End Type="SampleModel.Employees" Role="Employees" Multiplicity="*" />
           <End Type="SampleModel.Territories" Role="Territories" Multiplicity="*" />
         </Association>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserName" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Connection" Relationship="SampleModel.UserConnection" FromRole="User" ToRole="Connection" />
-        </EntityType>
-        <EntityType Name="Connection">
+        <EntityType Name="ConnectionSet">
           <Key>
             <PropertyRef Name="ConnectionId" />
           </Key>
-          <Property Name="ConnectionId" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="User" Relationship="SampleModel.UserConnection" FromRole="Connection" ToRole="User" />
+          <Property Name="ConnectionId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserUserId" Type="Int32" Nullable="false" />
-          <Property Name="Connected" Type="Boolean" Nullable="false" />
+          <Property Name="Connected" Type="Boolean" />
+          <NavigationProperty Name="UserSet" Relationship="SampleModel.FK_UserConnection" FromRole="ConnectionSet" ToRole="UserSet" />
         </EntityType>
-        <Association Name="UserConnection">
-          <End Type="SampleModel.User" Role="User" Multiplicity="1" />
-          <End Type="SampleModel.Connection" Role="Connection" Multiplicity="*" />
+        <EntityType Name="UserSet">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConnectionSet" Relationship="SampleModel.FK_UserConnection" FromRole="UserSet" ToRole="ConnectionSet" />
+        </EntityType>
+        <Association Name="FK_UserConnection">
+          <End Type="SampleModel.UserSet" Role="UserSet" Multiplicity="1" />
+          <End Type="SampleModel.ConnectionSet" Role="ConnectionSet" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="UserSet">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Connection">
+            <Dependent Role="ConnectionSet">
               <PropertyRef Name="UserUserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1329,8 +1362,20 @@ warning 6002: The table/view 'C:\USERS\EVERTON.NOGUEIRA\SOURCE\REPOS\KENDOUISIGN
             </EndProperty>
           </AssociationSetMapping>
           <EntitySetMapping Name="ConnectionSet">
-            <EntityTypeMapping TypeName="IsTypeOf(SampleModel.Connection)">
-              <MappingFragment StoreEntitySet="Categories" />
+            <EntityTypeMapping TypeName="SampleModel.ConnectionSet">
+              <MappingFragment StoreEntitySet="ConnectionSet">
+                <ScalarProperty Name="Connected" ColumnName="Connected" />
+                <ScalarProperty Name="UserUserId" ColumnName="UserUserId" />
+                <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSet">
+            <EntityTypeMapping TypeName="SampleModel.UserSet">
+              <MappingFragment StoreEntitySet="UserSet">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>

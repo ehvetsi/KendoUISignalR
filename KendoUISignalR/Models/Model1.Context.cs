@@ -42,7 +42,7 @@ namespace KendoUISignalR.Models
         public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<Territories> Territories { get; set; }
         public virtual DbSet<Weather> Weather { get; set; }
-        public virtual DbSet<User> UserSet { get; set; }
-        public virtual DbSet<Connection> ConnectionSet { get; set; }
+        public virtual DbSet<ConnectionSet> ConnectionSet { get; set; }
+        public virtual DbSet<UserSet> UserSet { get; set; }
     }
 }
